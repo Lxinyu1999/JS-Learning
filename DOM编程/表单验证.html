@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        span{
+            color:red;
+            font-size:12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 设计表格，要求：
+    ① 用户名不能为空
+    ② 用户名长度在6-14以内
+    ③ 用户名只能用数字和字母组成
+    ④ 密码和确认密码一致，邮箱地址合法
+    ⑤ 焦点消失验证
+    ⑥ 错误字体在span当中提示，用红色12号字体
+    ⑦ 文本框失去又获得焦点之后，清空错误信息和文本框内容 -->
+
+    <script>
+
+        window.onload=function(){
+
+            /* 一、用户名username相关
+                判断输入用户名是否为空，空则在span报错
+                判断输入的用户名是否长度在6-14，且只用数字和字母
+            */
+
+            let userText = document.getElementById("username"); // 获取文本框对象
+            let userNameSpan = document.getElementById("usernameError"); // 这个后面要用到多次，因此定义在这里了
+
+            // 1. 给用户名文本框绑定blur事件，也就是用户失去焦点时（鼠标点击了其他地方，不符合时则报错）
+            userText.onblur = function(){
+                // 2. 获取用户名
+                let username = userText.value;
+                username = username.trim();
+                
+                // 3. 判断用户名是否为空
+                if(username){ // 用户名非空，方法同python；也可以用 username.length == 0 来判断是否为空; 还可以 username === ""
+                    // 用户名非空，我们判断长度是否合法
+                    if(username.length<6 || username.length>14){
+                        userNameSpan.innerHTML = "用户名长度必须在6-14之间！"
+                    }
+
+                    // 判断是否含有非法字符，使用正则表达式
+                    var regExp = /^[A-Za-z0-9]+$/;
+                    var ok = regExp.test(username) // 判断username是否满足正则表达式
+                    if(ok){
+                       
+                    }else{
+                        userNameSpan.innerHTML = "用户名内容非法，必须是字母和数字组合"
+                    }
+
+                }else{ // 用户名为空
+                    userNameSpan.innerHTML = "用户名不能为空！"
+                }
+            }
+
+            // 4. 在输入状态也就是focus状态判断是否有非法字母
+            userText.onfocus = ()=>{
+                // 如果有则去除error span遗留下来的错误信息：https://www.bilibili.com/video/BV1x54y127Zb?p=73&vd_source=b5478c42863436502e06e157b062d81d
+                userNameSpan.innerHTML = ""
+                // 同时清空非法的前方空格
+                userText.value = userText.value.trim()
+
+                // 如果报错，则在点回用户名时去除错误内容
+                if(userNameSpan!=""){ // span非空就说明有问题
+                    userText.value = ""
+                }
+            }
+
+
+            /*
+                二、确认密码
+            */
+            // 获取确认密码框对象
+            let usrPwd2 = document.getElementById("password2");
+            // 获取确认密码错误的span标签对象
+            let pwdSpan = document.getElementById("passwordError");
+
+            // 设置onblur，也就是点击了其他位置时判断密码是否一致
+            usrPwd2.onblur = () =>{
+                // 获取原生密码对象，注意是对象，不是value值！
+                let usrPwd = document.getElementById("password")
+                if(usrPwd.value!=usrPwd2.value){
+                    pwdSpan.innerHTML = "确认密码有误，请确保和输入密码一致"
+                }
+            }
+
+            // 设置onfocus事件，这样当你从其他位置点击回确认密码框时，会清楚错误和报错信息
+            usrPwd2.onfocus = ()=>{
+                // 如果span内部非空，就说明有报错
+                if(pwdSpan.innerHTML!=""){
+                    usrPwd2.value = "" // 错误密码清空
+                    pwdSpan.innerHTML = "" // 报错也清空
+                }
+            }
+
+            /*
+                三、验证邮箱是否正确（还是正则表达式）
+            */
+            // 获取邮箱框对象
+            let emailElt = document.getElementById("email")
+            // 获取邮箱错误信息对象
+            let emailError = document.getElementById("emailError")
+
+            // 设置点击离开email对象时的验证
+            emailElt.onblur = ()=>{
+                let emailEltValue = emailElt.value;
+                //  email正则
+                let emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                let ok = emailRegExp.test(emailEltValue);
+                
+                if(ok){
+                    // 合法
+                }else{
+                    emailError.innerHTML = "邮箱地址不合法"
+                }
+            }
+
+            // 点回邮箱框清楚错误信息
+            emailElt.onfocus = ()=>{
+                // 不等于空，则说明有误
+                if(emailError.innerHTML != ""){
+                    emailElt.value = "";
+                    emailError.innerHTML = ""
+                }
+
+            }
+
+            /* 三、提交前的审核：在submit之前，必须验证每个框都有内容，且都通过了验证（也就是发生了onblur事件，且span都不报错）
+            */
+
+            // 使用CSS选择器来选择元素，所以它更为通用和灵活。它返回匹配选择器的第一个元素。如果没有找到任何元素，它返回 null。
+            // 获取表单对象 document.querySelector 和 document.getElementById 都是从DOM中选择元素的方法
+            let form = document.querySelector("form") // 使用该方法不需要设置id了
+
+            // 为表单绑定一个onsubmit事件句柄，在里面进行判定，如果有不合法的输入，则禁止submit；否则可以正常默认提交。
+            form.onsubmit = (event)=>{ // 这里需要用到当前事件，因此输入event对象
+                // 目标是检测所有输入是否合法
+                // 一种常用的方法是，我们让代码主动触发所有blur事件（之前我们所有的输入合法的判定都是和onblur绑定的，也就是让鼠标点击其他地方进行一次判定）
+                // 就相当于鼠标挨个点击每个输入框focus，然后离开，触发blur同时检查代码是否合法
+                // 此时如果span里面都没有东西，那就是合法；反之不合法
+                userText.focus() // 点击用户名框，这应该是我们第一次写出类似代码 
+                userText.blur() // 鼠标离开
+                
+                usrPwd2.focus()
+                usrPwd2.blur()
+
+                emailElt.focus()
+                emailElt.blur()
+                // 检查所有span
+                // 获取所有span标签,document.querySelectorAll，它返回一个NodeList，其中包含了所有匹配给定选择器的元素。
+                // NodeList 是一个DOM（文档对象模型）的数据类型，表示一个节点的集合，即一组有序的节点。你可以把它看作一个节点的数组
+                let spans = document.querySelectorAll("span")
+
+                // 遍历每一个span
+                for (let span of spans){// 这里注意一下，js里面循环用of，用in表示的是当前元素的下标（或者字典里面的key）
+                    // 如果span的内容不为空，说明有报错，跳出
+                    if (span.innerHTML.trim()!=""){
+                        // preventDefault用于取消事件的默认动作。比如在提交事件里面就是阻止提交，同理还有在click事件里阻止超链接跳转等等。类似于void函数
+                        alert("有误，阻止提交")
+                        event.preventDefault(); // 阻止表单提交
+                        break; // 直接退出循环。因为有报错你这个表单肯定是不对的了。
+                    }
+                }
+            }
+
+        }
+
+
+    </script>
+
+
+
+    <!-- 这里为了安全应该是使用POST的，但是我们为了简化就用GET了。另外，默认不写也是GET方法 -->
+    <form action="http://localhost:8080/jd/save" method="GET">
+        <input type="text" name="username" id="username">用户名 <span id="usernameError"></span>             <br>
+        <input type="text" name="password" id="password">密码 <br>
+        <!-- 验证密码无需提交，因此没有name值，我们通过浏览器的js代码即可验证。注意：表单的提交是name=value的形式！所以没有name的元素不会提交 -->
+        <input type="text" id ="password2">验证密码 <span id="passwordError"></span> <br>
+        <input type="text" name="email" id="email">邮箱 <span id="emailError"></span><br>
+
+        <!-- 这俩兄弟是不用提交的，value表示的是按钮上的显示值。因为你不可能去提交一个按钮吧 -->
+        <input type="submit" value="注册">
+        <input type="reset" value="重置">
+    </form>
+</body>
+</html>

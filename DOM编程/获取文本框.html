@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>设置和获取文本框的title</title>
+</head>
+<body>
+    <script>
+        /*
+            Js体系分为三个内容：
+            ① ECMAScript，包括js语法的核心语法内容 
+            ② DOM编程 每个树的部分（节点）都代表文档中的一部分：例如一个段落、一个标题、一个链接等。对HTML当中的DOM节点进行操作
+              文档是什么？文档（document）通常指的是载入浏览器中的网页。每当浏览器加载一个新的网页时，它都会创建一个表示该页面的文档对象。我们可以理解为是浏览器除了上方标签栏那一坨以外的下方区域。
+              Document像一棵树，每个树的部分（节点）都代表文档中的一部分：例如<html>节点，<body>节点，<head>节点等等
+                常用方法：document.getElementById("xxx")
+            ③ BOM编程 浏览器对象模型 window表示整个浏览器（包括上面那一坨标签栏之类的）
+                使用JavaScript，你可以与浏览器进行交互，例如改变浏览器窗口的大小、导航到新的网页或者设置定时提醒。
+                常用方法：window.alert()，window.onload()等等
+            
+            BOM的顶级对象是window，DOM的顶级对象是document，实际上BOM是包括DOM的，因此实际上是window.document.xxxx，但是window绝大部分情况可以省略！
+        */
+
+        window.onload = function(){
+            var btn = document.getElementById("btn");
+            btn.onclick = ()=> {
+                // 获取文本框里面的属性
+                let username = document.getElementById("txt").value;
+                alert("您输入的用户名是："+username);
+
+                // 除了获取，我们还可以修改获取的值
+                document.getElementById("txt").value = "zhangsan"
+            }
+        }
+    </script>
+    <input type="text" id="txt">
+    <input type="button" value="获取文本框的值" id="btn">
+
+    <div>
+        <!-- 下面的代码实现了：在点击按钮以后把第一个文本框的值复制到第二个文本框里面 -->
+        <script>
+            window.onload = function(){
+                document.getElementById("btn2").onclick = ()=>{
+                    document.getElementById("txt2").value = document.getElementById("txt1").value
+                }
+            }
+        </script>
+        <input type="text" id="txt1">
+        <input type="text" id="txt2">
+        <input type="button" value="将第一个文本框的值复制到第二个文本框里面" id="btn2">
+    </div>
+
+
+    <div>
+        <!-- 前面说过了，事件句柄后面跟的是js代码！！属于js引用的第一种方式
+        this表示当前的html对象，也就是text。onblur表示鼠标失去焦点（点击了其他位置）以后的情况 -->
+        <input type="text" onblur="alert(this.value)">
+
+
+
+    </div>
+
+
+
+</body>
+</html>

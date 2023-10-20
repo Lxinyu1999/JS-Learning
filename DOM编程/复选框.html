@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复选框的全选和多选</title>
+</head>
+<body>
+    <script>
+        /* 任务一、点击全选，能同时选中/取消选中三个选项  */
+        window.onload=()=>{
+            // 获取全选框对象
+            let allElt = document.getElementById("all");
+            // 获取所有爱好，组成一个数组
+            let hobbies = document.getElementsByName("hobby");
+
+            // 设置all框的点击事件
+            allElt.onclick=function(){
+
+                for (let hobby of hobbies){
+                    // 如果选择了all框，则全选；否则全不选
+                    // 将hobby的checed属性赋值为和all box的一样即可
+                    hobby.checked = allElt.checked; // all是true，那hobby就是true；反之则都是false
+                }
+
+            }
+
+
+        /* 任务二、点击所有的子框以后，上方的框也会同时勾选。*/
+
+        let allLength = hobbies.length;
+
+        // 循环，为每个hobby框设置onclick事件。这里是两个一模一样的条件循环，外层是为了个每个框赋值onclick，内层是为了在点击时遍历所有框判定是否要勾选all
+        for (let hobby of hobbies){
+            // 当你点击某个hobby框时
+            hobby.onclick = function(){
+                let count=0;
+                // 点击某个hobby框时，会检查所有的框，如果所有框都被选，则勾选all
+                for (let hobby of hobbies){
+                    // 如果当前爱好被选中，就计数+1
+                    if(hobby.checked){
+                        count += 1;
+                    }
+                    // 如果长度相等，则checked为true
+                    allElt.checked = (count==allLength)
+                }
+            }
+        }
+        }
+    </script>
+
+    <input type="checkbox" id ="all">全选 <br>
+    <input type="checkbox" name="hobby" value="piano">钢琴 <br>
+    <input type="checkbox" name="hobby" value="soccer">足球 <br>
+    <input type="checkbox" name="hobby" value="fitness">健身 <br>
+
+</body>
+</html>

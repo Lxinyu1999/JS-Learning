@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>函数与控制语句</title>
+</head>
+<body>
+    <script>
+        /*
+            1. 箭头函数
+            ECMA 2015（或ECMA Script 6）引入了更短的语法来编写函数表达式，称为箭头函数。
+            https://www.jianshu.com/p/36799289869f
+        */
+        // 这是之前的函数，可以看到还要写function，很麻烦
+        function add(a,b){
+            return a+b;
+        }
+        // 现在我们可以定义为
+        const add2 = (a,b)=>{ // 这里的add是函数变量，也就是一个函数的引用，该思想和python类似。此外，我们使用const修饰它，用于创建一个不能重新赋值的常量引用。
+            return a+b;
+        }
+        // 进一步，如果你的函数主题{}里面只有一句返回语句，那么就可以省略return和{}
+        const add3 = (a,b)=> a+b // 返回a+b
+
+        // 再进一步，如果你的输入只有一个变量，那就连输入的小()也可以不用
+        const dobuleX = x=>2*x // 输入x，返回2x
+        console.log(dobuleX(10)) // 20
+
+        const greet = ()=> console.log("Hello, world!"); // 没有输入参数，就打印一个字符串
+        greet() // 调用该函数
+
+        // 然而，如果你的{}有多句，那就不能省略{}和return。此外，箭头函数也支持默认值
+        const add4 = (a=2,b=3)=>{ // 设置了默认值
+            let res = a+b;
+            return res;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内置时间类Date</title>
+</head>
+<body>
+    <script>
+        /* 
+            js当中的内置支持类之时间类
+            可以用来获取时间、日期
+        */
+        // 获取当前时间
+        let nowTime = new Date();
+        // 这是另一种输出方式，它可以直接修改或添加到Web页面的内容。（相当于你直接在HTML里面写字）
+        // 把这个对象能直接输出出来的原因是，Date类重写了toString方法。（是js帮我们写好的，毕竟是人家的内置类）
+        document.write(nowTime) // Fri Oct 20 2023 00:49:30 GMT+0900 (日本标准时间)
+
+        // 转化成具有本地语言的格式
+        let nowTime2 = nowTime.toLocaleString()
+        document.write("<br>")
+        document.write(nowTime) // 格式更加友好：2023/10/20 00:54:40
+
+        // 也可以自定义格式
+        let nowTime3 = new Date()
+        let year = nowTime3.getFullYear() // 返回年
+        let month = nowTime3.getMonth() // 返回月，0-11 坑爹呢这是
+        let day = nowTime3.getDate() // 返回日
+        let weekDay = nowTime3.getDay() // 返回星期几，这个也是0-6，只不过0是星期日
+        document.write("<br>")
+        document.write(year+"年"+(month+1)+"月"+day+"日，星期"+weekDay)
+
+        // 获取毫秒数：从1970年1月1日 00:00:00 : 000 获取到当前时间的毫秒数
+        document.write("<br>"); 
+        let t = new Date();
+        let times = t.getTime()
+        document.write(times) // 1697731684754，此数字一直在狂涨
+
+        // 能否点击一个按钮直接显示当前时间，而且是实时变动的？
+        // 首先写出点一次动一次的，然后设置一个interval，让他每隔1s调用它一次就行了。
+        function setTime(){
+            let time = new Date();
+            time = time.toLocaleString();
+            document.querySelector('div').innerHTML = time
+        }
+
+        // 通过setInterval来调用
+        function showTime(){
+            // 每隔1000 毫秒（也就是1秒）调用一次setTime。setTime会创建Date类然后把时间打印在div里面
+            // 由于这个很逆天的setInterval必须要传入一个函数才能设置间隔，所以不得不套娃。
+            v = window.setInterval(setTime,1000) // 这里的v这里用不到，后面stop时会用到. 因此我们故意不写声明let或者var，让v是一个全局变量。
+        }
+
+        // 停止显示时间
+        function stop(){
+            // 之前的setInterval会返回一个值v（具体是什么不用管），该值可以传递给clearInterval()用于停止该无限调用
+            window.clearInterval(v);
+        }
+    </script>
+    <!-- 按下按钮的时候，调用showTime，它会每隔1秒调用显示时间的另一个函数setTime -->
+    <input type="button" value="显示当前时间" onclick="showTime()">
+    <input type="button" value="停止显示" onclick="stop()">
+    <div></div>
+</body>
+
+</html>

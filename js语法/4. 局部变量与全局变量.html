@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>js变量2</title>
+    <script>
+        /* 全局变量定义在方法体（函数）之外，它在浏览器打开时定义，关闭时销毁，会一直占用内存。因此尽量少用
+           局部变量是定义在函数内部的变量（包括形参），它在函数被调用时开辟内存定义，函数调用结束就被销毁了，因此内存负担小。
+        */
+        var i = 100; // 全局变量
+        function accessI(){
+            alert("i = "+i);
+        }
+        accessI();
+
+        function accessJ(){
+            var j = 200; // 局部变量
+            alert("j = "+j);
+        }
+        accessJ(); // 当我们调用完该函数，j变量就被销毁了
+        // alert("外部调用j = " +j) // 因此此处调用失败，报错：Uncaught ReferenceError: j is not defined。注意，当你没赋值是undefined，如果连声明都没有，就是报错！
+
+        
+        // 实际上，js还可以不使用var关键字，直接声明变量（和python一样），这种情况下声明的均为全局变量。
+        function myName(){
+            name = "lxy";
+        }
+        myName() // 先调用myName()
+        alert("name = "+ name) // name = lxy
+
+
+
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

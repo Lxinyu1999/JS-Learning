@@ -1,0 +1,26 @@
+<html>
+<head></head>
+<body>
+
+	<script type="text/javascript">
+
+	window.onload = function(){
+	//连用两次function()套娃，先获取btn，再获取text
+	document.getElementById("btn").onclick = function(){  //先获取按钮对象，对onclick赋值
+	document.getElementById("mytext").type = "checkbox"; //onclick会将text变为checkbox
+}
+}
+
+
+	var btn = document.getElementById("btn"); //赋值给按钮对象	
+	btn.onclick=dosome; //此处dosome没有小括号 死记硬背！	
+
+
+	</script>
+
+	<input type = "button" value = 变换 id = "btn"/>
+	<input type = "text" value = nt id = "mytext"/>
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组</title>
+</head>
+<body>
+    <script>
+        /* js中的数组类型随意，长度随意 */
+        // 创建长度为0的数组
+        let a = []
+        
+        let arr = [1,-200,false,3.14,"abc"];
+        console.log(arr.length) // 5
+
+        // 下标不会越界，js会自动扩容
+        arr[7] = 'test';
+        for(let i=0;i<arr.length;i++){
+            document.write(arr[i]+"  ");  // 1 -200 false 3.14 abc undefined undefined test
+        }
+        document.write("<br>============<br>"); 
+                
+        // 使用of循环也是同理
+        for(let i of arr){
+            document.write(i+"  ");  // 1 -200 false 3.14 abc undefined undefined test
+        }
+
+        document.write("<br>============<br>"); 
+
+        // 然而，如果使用in循环，会因为搜寻不到undefined的索引，跳过他们。就属这个最坑
+        for(let i in arr){
+            document.write(arr[i]+"  "); //1 -200 false 3.14 abc test
+        }
+
+
+        document.write("<br><br>===================我是分割线==================<br><br>"); 
+
+        /* 常用方法 */
+        let b = [1,2,3]
+        // js中的数组可以模拟栈的数据结果，后进先出。和python一样
+        b.push(10) // 末尾添加一个元素
+        let end = b.pop() // 将末尾元素弹出。和栈一样
+        alert(end)
+
+        let str = b.join('-') // 用指定的字符把数组中的元素连接起来，返回字符串
+        alert(str) // 1-2-3
+
+        b.reverse() //反转
+        alert(b) // 3,2,1 。为什么可以直接输出？还是同理，js帮我们提前写好了内置数组类的toString()方法，它会输出数组内的所有元素
+
+        /* 另一种创建数组的方式，用的不多 */
+        let arr2 = new Array(); // 创建Array类对象的实例
+        console.log(arr2.length) // 默认长度为0
+
+        let a2 = new Array(3) // 长度为3
+        let a3 = new Array(3,2) // 存储的元素是 [3,2].这太蠢了
+
+    </script>
+</body>
+</html>

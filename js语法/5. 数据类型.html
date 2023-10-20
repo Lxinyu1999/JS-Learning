@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JS数据类型</title>
+    <script>
+        /*
+            1. type of
+            js中的变量很灵活，因此我们有必要研究每种数据类型。
+            js的数据类型分两类：原始类型、引用类型。一共有七种
+            原始类型：Number，String，Boolean，Null，Undefined，Symbol（新加的）
+            引用类型：Object以及Object子类。
+
+            typeof：这个运算符可以在页面运行阶段动态的获取变量数据类型, 以字符串输出！注意是字符串，js没有equal方法！
+            使用方法：typeof 变量名
+            输出的结果是上述类型+function的小写字符串。
+
+            在js当中比较字符串是否相等，使用双等号'=='。因此我们可以通过typeof的输出比较字符串是否相等来判定类型
+        */
+
+        // 设计一个严格要求整型才能相加的加法
+        function sum(a,b){
+            if(typeof a == 'number' && typeof b == 'number'){
+                alert(a+b);
+            }else{
+                alert("a,b类型必须为整数");
+            }
+        }
+
+        sum(10,20)
+        sum(10,'acd')
+
+        /*
+            2. Number 类型
+            Number类型包括哪些值？整数，小数，NaN，Infinity 四种
+            NaN是什么？它是在本应该是数字，但无法计算数字的时候得出
+        */
+        var x = (30/"abc"); // x = NaN，因为无法计算怎么除以一个字符串
+        var y = (10/0) // y = infinity
+        var z = (10/3) // z = 3.3333... 不是整数！注意
+
+        s = typeof null
+        alert(s) // null的数据类型是object
+
+        // isNaN(x)函数用于判定输入x是否为number类型，如果不是返回true，反之false
+        alert(isNaN(x)) // true
+        alert(isNaN("abc")) // 也是true，因为字符串不是number类型。注意这里的isNaN判定的是是否为数值，不是NaN。
+
+        // 还有其他常用number相关的函数
+        parseInt(3.111) // 输出3 强制转换int（取整数位），且如果输入为字符串也会强转
+        parseInt("3.111") // 也是输出3
+        parseFloat(3) // 返回3，它会保留整数。同样也可以强转字符串。
+        Math.ceil() // 向上取整，Math是一个数学类
+
+
+        /*
+            3. null, NaN, undefined 的区别
+            首先，这三者的数据类型是不一致的（使用===不相等），但是null的值和undefined是等价的（也就是用==是相等的）
+            '=='判断值是否相等；'==='既判断值，也判断数据类型
+        */
+        console.log(typeof null) // object
+        console.log(typeof NaN) // number
+        console.log(typeof undefined) // undefined
+        console.log(null==undefined) // 输出true。剩下的组合是false，不相等。
+
+        console.log(1==true) // true
+        console.log(1===true) // false，一个是number，一个是boolean
+    </script>
+</head>
+<body>
+    
+
+</body>
+</html>

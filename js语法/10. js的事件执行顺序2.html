@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>设置节点的顺序</title>
+</head>
+<body>
+    <script>
+        window.onload=function(){
+            // 其实就是不断套娃就行了，首先用获取button，然后为button的点击赋值函数，该函数获取text，把它的type修改为checkbox。
+            document.getElementById("button").onclick = function(){
+                document.getElementById("text").type = "checkbox"
+            }
+        }
+
+
+    </script>
+    <input type="text" id="text">
+    <input type="button" value="将文本框改为复选框" id="button">
+
+</body>
+</html>

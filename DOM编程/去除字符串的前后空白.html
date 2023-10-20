@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>trim去除前后空白</title>
+</head>
+<body>
+    <script>
+        window.onload = function(){
+            document.getElementById("btn").onclick=function(){
+                // 获取字符串
+                var username = document.getElementById("username").value;
+                // 去除前后空白
+                username = username.trim();
+                alert(username);
+            }
+        }
+
+        // 低版本ie不支持trim怎么办？我们自己改写
+        String.prototype.trim() = function(){
+            // this表示当前字符串
+            return this.replace(/^\s+/,"").replace(/\s+$/,"");
+        }
+
+    </script>
+
+    <input type="text" id="username"/>
+    <input type="button" value="获取用户名" id="btn"/>
+
+</body>
+</html>

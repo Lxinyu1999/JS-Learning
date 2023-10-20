@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>js变量</title>
+
+    <script>
+        /*JS是强类型语言，变量命名没有类型限制，这点和python相似。
+         但是必须在前面加一个 var */
+        var x
+        x = "abc"
+        x = false
+        alert("x = "+x) // 使用方法和print一样
+
+        var y = 100 // 也可以直接赋值
+        alert("y = "+y)
+
+        var z // 如果变量没有赋值，默认为undefined. 
+        alert("z = "+z)
+
+        var a,b,c = 100 // 这里只有c被赋值了。前面两个是undefined。你可以用var a=100,b=100,c=100; 来全体赋值。
+        alert("a = "+a)
+        alert("b = "+b)
+        alert("c = "+c)
+
+
+        /*
+            在ES2015(ES6) 新增加了两个重要的 JavaScript 关键字: let 和 const。
+            let声明的变量可以在指定的代码块内有效，而在此之前变量的作用域只有全局和函数内局部两种
+            const声明一个常量，它不能被改变（只读）
+            https://www.runoob.com/js/js-let-const.html
+
+            这两个方法在同一个作用域下（比如都在全局使用，或者都在函数内部）作用是完全一样的，只有以下特殊情况：
+        */
+
+        // 在循环作用域内外使用：
+        // var i = 5;
+        // for(var i = 0;i<10;i++){
+        //     // do something
+        // }
+        // console.log(i); // 输出的i=10，也就是说循环里面的无效i污染了原本的全局变量
+        
+        let i = 5;
+        for(let i=0;i<10;i++){
+
+        }
+        console.log(i) // 输出的i=5，因为let只影响自己的代码块
+
+
+        // 在 HTML 中, 全局作用域是针对 window 对象。使用 var 关键字声明的全局作用域变量属于 window 对象:
+        var w = 5;
+        console.log(window.w) // 5
+
+        let v = 5; // 使用 let 关键字声明的全局作用域变量不属于 window 对象
+        console.log(window.v) // undefined
+
+
+        // 块级作用域 Block
+        // 使用 var 关键字声明的变量不具备块级作用域的特性，它在 {} 外依然能被访问到。
+        { 
+            var s = 2; 
+        }
+        console.log(s)// 这里可以使用 x 变量
+
+
+        // let 声明的变量只在 let 命令所在的代码块 {} 内有效，在 {} 之外不能访问。
+        { 
+            let n = 2;
+        }
+        console.log(n) // 这里不能使用n。报错：Uncaught ReferenceError: n is not defined
+
+
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

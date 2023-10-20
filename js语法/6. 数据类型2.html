@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>数据类型2</title>
+    <script>
+        /*
+        1. Boolean类型
+            布尔类型只有两个值：true/false
+            js当中有一个Boolean()函数，作用是将Boolean(x)里的非布尔类型数据x转化为布尔类型。在if()里面，括号内自动使用一次Boolean函数。
+            在其他数据类型当中，有许多是和true/false值等价的，此时用==是成立的；但是注意他们的类型并不等价，比如1和0是整数，此时用全等===是报错的（因为还会判断类型）
+        */
+
+        var x = "" // 空字符串在js当中通过Boolean()函数是false
+        if(x){ // 等价于if(Boolean(x))
+            alert("x是true") // 并没有显示，说明x不是true
+        }else{
+            alert("x是false") // 显示的是该行
+        }
+
+        // 有很多值被视为falsy,即在布尔上下文中被转换为false
+        alert(Boolean(1)) // true
+        alert(Boolean(0)) // false
+        alert(Boolean("")) // false
+        alert(Boolean("abc")) // true
+        alert(Boolean(null)) // false
+        alert(Boolean(NaN)) // false
+        alert(Boolean(undefined)) // false
+        alert(Boolean(Infinity)) // true
+
+        /*
+        2. string类型
+            js当中字符串可以用单引号也可以用双引号，如果有嵌套，则需要同时使用：alert("你真是个'逆天'。")
+            定义string的方法有两种：① 直接定义 var s = "lxy" ，这种是原生的字符串，小string
+            ② 通过js内置的支持类String来定义，它的父类是object。 var s2 = new String("abc"); 这种是包装好的，大String
+        */
+        var s1 = "lxy";
+        alert(typeof s1); // 小string 
+
+        var s2 = new String("abc");
+        alert(typeof s2); // 大String，属于object类。
+
+
+        /*
+            无论是小string还是大String，它们的属性和函数都是通用的，常用函数如下：
+        */
+        alert(s1.length) // 获取长度，3
+        alert(s1.charAt(0)) // 获取角标为i的字符，‘l’
+        alert(s2.indexOf('bc')) // 获取字符串bc第一次出现的位置, 1
+        alert(s2.lastIndexOf('c')) // 最后一次出现的位置。
+
+        // 判断是否包含某字符串
+        alert(s1.indexOf('d')>=0 ? "包含" : "不包含")
+
+        var s3 = new String("htt%ps://w%ww.bili%bili.com/vid%eo/BV1Ft41%1N7R%3?p=17");
+        s3 = s3.replace('%','') // 把百分号%替换为无，这里只能替换第一个，如果要都替换需要正则表达式
+
+        
+	    var s4 = "Hello world";
+        s4 = s4.substr(1,4) // 输出起始角标为1，长度为4的子串，‘ello’
+        s5 = s5.substring(1,4) // 输出角标坐标[1,4)的子串，‘ell’
+
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

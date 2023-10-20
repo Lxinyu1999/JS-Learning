@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>js代码的执行顺序</title>
+
+</head>
+
+<!-- 当页面整个加载完毕后，load事件被触发，运行ready()函数。注意，很遗憾的是head里面不能加onload，我们可以在script标签里面加defer -->
+<body onload="ready()"> 
+    <script>
+        /*
+            我们发现，点击按钮不执行了！
+            这是因为js的执行顺序是自上而下，此时下方的按钮还没有被加载，那根本就没有id，无法获取。
+
+            如何解决呢？一种是把js的代码放在HTML块的后面，那太麻烦了
+        */
+        // document.getElementById("001").onclick=function(){
+        //     alert("Hello js!")
+        // }
+
+        // ready()函数的内容就是注册button，由于onload事件 所以在最后页面加载完毕才可以正常执行。此时按钮已经加载好了
+        ready = function(){
+            document.getElementById("001").onclick=function(){
+                alert("Hello js!")
+            }
+        }
+
+        // 每次都要在body里面onload太麻烦了，我们直接调用window的onload属性，上面的写法等价于：
+        window.onload = ready2
+        function ready2(){
+            //...
+        }
+
+        // 继续简化，这样就不需要body里面套ready()了。
+        window.onload = function(){
+            //... 
+        }
+
+    </script>
+
+    <input type="button" value="hello" id="001">
+
+    
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>object类型</title>
+    <script>
+        /*
+            1. object类型是所有类型的超类（父类），因此js中的任何类型都继承object类
+               那么object都有哪些属性和方法呢（也会被继承给子类）？
+               属性 ① prototype（最常用，主要是给类动态的扩展属性和函数） ② constructor
+               方法 ① toString() ② valueOf() ；js提供了默认的 toString 和 valueOf 方法实现，这些实现存在于 Object.prototype 中。
+
+
+                              在实际操作中，这两个方法
+               很多内置对象（如 Array, Date, Number 等）都重写了这些方法，以提供更有意义的输出。
+               在prototype里，toString()返回的是[object type]，其中 type 是对象的类型
+               默认的 valueOf() 方法返回对象本身，也没什么用，但是很多类型已将其重写。
+        */
+
+        // 打开console控制台查看结果
+        var obj = {}
+        console.log(obj.toString()) // [object Object]
+        // 数组的toString会把数组元素用字符串输出
+        console.log([1,2,3].toString()) // 1,2,3
+        // 输出时间
+        var date = new Date()
+        console.log(date.toString()) // Sun Oct 08 2023 18:48:17 GMT+0900 (当前日本标准时间)
+
+
+        /*
+            2. js当中如何定义类？
+            三种方法
+            ① function 类名(形参){
+
+            }
+            ② 类名 = function(形参){
+
+            }
+            可以看到这两个方法太逆天了，定义类怎么还要用函数名啊？于是新版 ES6 通过class关键字来定义类了
+            ③ class 类名{
+                // 创建对象时会自动调用构造函数方法 constructor()。
+                constructor(形参){ //每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象。
+                    xxxx 
+                }
+            }
+
+            创建完毕以后，定义实例：对象名 = new 类名(实参) // 这是三个都一样的，和python定义实例很像。
+        */
+
+        // 第一种方法
+        function sayHello(){
+
+        }
+        Hi = new sayHello() // 当作类调用
+        sayHello() // 当作函数调用
+
+
+        // 第二种方法，学生类
+        function Student(){
+
+        }
+        Bob = new Student() // 创建一个学生对象
+
+        // 第三种方法，还是学生类
+        class Student{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+        }
+
+        Alex = new Student("Alex","24");
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

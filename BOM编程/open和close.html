@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window的open和close</title>
+</head>
+<body>
+    <script>
+        /* 前面也说过了，window对象是顶级对象，代表整个浏览器窗口（包括上方那一坨工具栏标签栏等&）
+            window有open和close方法，可以直接关闭整个窗口 
+
+           这个方法可以接受多个参数，但常用的是以下三个：
+           window.open(url,target,feature)
+            ① URL：要在新窗口/标签页中加载的网页的URL。
+            ② target：指定如何打开这个网页。例如：
+                _blank: 在新窗口或标签页打开URL。这是默认选项
+                _self: 在当前窗口或标签页打开URL。
+                _parent: 在父框架中打开URL。
+                _top: 在整个浏览器窗口中打开URL，取消所有框架。
+            ③ features：一组以逗号分隔的项目，指定新窗口的外观和功能。例如：width=400,height=300,resizable=yes。
+        */
+    </script>
+    <!-- 在新窗口打开url，默认项 -->
+    <input type="button" value="开启新窗口" onclick='window.open("https://www.baidu.com")'>
+    <!-- 注意，输入的所有参数都是字符串形式 -->
+    <!-- 另外注意，这里的url必须是http开头，不能省略 -->
+    <input type="button" value="也是开启新窗口" onclick="window.open('https://www.baidu.com','_blank')">
+
+    <!-- 在当前窗口或标签页打开URL -->
+    <input type="button" value="在当前窗口打开" onclick="window.open('https://www.baidu.com','_self')">
+    <!-- 在父窗口打开url -->
+    <input type="button" value="在父窗口打开" onclick="window.open('https://www.baidu.com','_parent')">
+
+    <!-- 注意，js当中的地址是/，我们现在当前目录是在子文件内，所以要../回到上一级 -->
+    <input type="button" value="打开我们之前的html文件" onclick="window.open('../src/test.html')">
+</body>
+</html>

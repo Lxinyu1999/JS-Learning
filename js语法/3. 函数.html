@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>函数</title>
+    <script>
+        // 第一种定义方法
+        function sum(a,b){ // 如果你不对形参传参，那就默认赋值undefined
+            alert(a+b);
+        }
+
+        // 第二种定义方法
+        abs = function(x){
+            if (x<0){
+                return -x;
+            }else{
+                return x;
+            }
+        }
+
+        // 注意，函数只有被调用才能显示。调用的方法分两种，一种是在事件句柄当中，还有一种就是直接在js代码块里面调用
+        var x = abs(-199) 
+        alert(x) 
+
+
+        // 注意，在js当中，函数的语法非常松散，且已经帮我们重载了。如果你定义多个同名的函数，后定义的会覆盖前面定义的函数。
+        sum(1,2)
+        sum("abc",2) // 直接连接字符串
+        sum("abc") // 如果少一个参数，就默认它为undefined，输出abcundefined
+        sum() // 但是如果为undefined+undefined，会返回NaN, 这是一种值，not a number
+        sum(1,2,3) // 如果你传多了，就只要前两个。
+    </script>
+</head>
+<body>
+    <input type="button" value="调用函数1" onclick="sum(10,20)"/>
+    <input type="button" value="调用函数2" onclick="abs(-10)"/>
+</body>
+</html>

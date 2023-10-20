@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>JS第一课：引入JS代码的方式</title>
+        <!--1. 通过script模块引入  -->
+        <!-- 默认的script类型就是js了，所以不需要再写type -->
+        <script>
+            // js的代码可以嵌入任何位置，且在script内部的注释是用“//”
+            // window 是js当中的自带对象，它对应我们可以拖动的浏览器页面。window对象有一个自带的函数叫做alert，它可以弹出消息。
+            window.alert("我要学JS！") // js的结尾不需要分号；你硬要加也可以
+            alert('冲就完事了！') // 弹出第二条消息。window可以省略。js当中可以用“”，也可以用''；但是你如果多次使用引号必须同时使用。
+        </script>
+    </head>
+
+    <body>
+        <!-- 2. 通过插入在事件里面的方式定义，形如onclick="js代码" 
+        页面打开的时候js代码并不会执行，只是把这段代码注册到了按钮的click事件上。等真的点击了按钮以后，才会触发js代码
+        js是一门事件驱动型语言，比如鼠标点击，鼠标移动，鼠标放下等等。每一门事件都有对应的事件句柄，以“on”开头，例如onclick。 -->
+        <input type="button" value="按钮" onclick="window.alert('一条消息')" />  <!--这些事件句柄以HTML当中的属性存在-->
+    
+    
+        <!-- 3. 通过外部引入js文件 -->
+        <script src="test.js">
+            // 这里的代码不会生效
+            alert("这里不会运行")
+        </script>
+    
+    </body>
+
+
+
+
+</html>

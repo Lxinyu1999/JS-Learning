@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>事件</title>
+
+    <script>
+        /*
+            焦点类：指鼠标点击的位置
+            blur 失去焦点
+            focus 获得焦点
+            select 文本被选定
+
+            鼠标点击：
+            click 鼠标单击
+            dbclick 鼠标双击
+
+            键盘相关：
+            keydown 键盘按下
+            keyup 键盘弹起
+
+            鼠标相关的：
+            mousedown 鼠标按下
+            mouseup 鼠标弹起
+            mouseover 鼠标经过
+            mousemove 鼠标移动
+            mouseout 鼠标消失
+
+            表单相关：
+            chnage 下拉列表选项或者文本框内容改变
+            submit 表单提交
+            reset 表单重置
+
+            页面加载：load （整个HTML页面全部元素加载完毕之后发生）
+
+
+            任何一个事件都对应一个事件句柄，事件句柄在事件之前加一个on即可（不需要大写）
+            事件句柄以属性的形式出现在HTML标签上
+        */
+
+        function sayHello(){
+            alert("Hello world!")
+        }
+
+
+    </script>
+</head>
+<body>
+    <!-- 注册事件的第一种方式，直接在标签里使用事件句柄属性 -->
+    <!-- sayHello被称为回调函数call back。因为这个函数不是我们直接调用，而是通过其他事件触发才能调用 -->
+    <input type="button" value="Hello" onclick="sayHello()"/> 
+
+
+    <!-- 注册事件的第二种方式，使用纯js代码完成事件的注册。 -->
+    <input type="button" value="Hello2" id="0001">
+    <input type="button" value="Hello3" id="0002">
+
+    <script>
+        /*  纯js代码来注册事件的流程如下：
+            ① 首先获取这个按钮对象（通过id，或者name等）
+            ② 给按钮对象的onclick属性赋值。注意，如果是函数对象，不要加小括号。
+        */
+        // document为不含标签栏的页面对象（window是整个窗口对象）
+        var myBtn = document.getElementById("0001"); // 获取button对象
+        myBtn.onclick = sayHello // 这里一定不能加小括号，因为我们只是引用函数对象（类似python），只有调用函数时才加小括号。比如myFunc = add, 把add这个函数赋值给myFunc
+
+
+        /* 也可以通过匿名函数，无需定义button对象具体的名字，直接赋值函数 */
+        document.getElementById("0002").onclick = function(){ // 该匿名函数在页面加载时不会执行，只有点击按钮才会调用，也是回调函数。
+            alert("Hello world!")
+        }
+        /* 就等价于：
+            var myBtn2 = document.getElementById("0002");
+            btn2.onclick = sayHello() 
+            sayHello = function(){
+            alert("Hello world");
+            }
+            因此这里省略了两步，第一步是按钮对象myBtn2，第二步是函数名sayHello
+        */	
+
+
+
+
+    </script>
+</body>
+    
+</html>

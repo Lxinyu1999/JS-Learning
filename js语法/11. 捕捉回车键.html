@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>捕捉回车键</title>
+</head>
+<body>
+    <script>
+        window.onload=function(){
+            var username = document.getElementById("username");
+            // onkeydown表示你按下了任意键
+            // event是一个事件对象。当事件（如点击、按键等）在DOM元素上触发时，浏览器会自动传递一个event对象给事件处理程序。
+            // 这个对象包含了与该事件相关的所有信息。如果你需要用到event，那你就定义它，不需要，你就不用在function(里面)写定义。
+            username.onkeydown = function(event){ // 无论你写不写，只要你发生了事件它就会有一个event对象产生，但是你不传到函数里面它就拿不到。
+                if(event.keyCode==13){ // 这是event事件对象的一个属性，keyCode代表特定键盘按键的数值代码，回车是13，esc是back是27
+                    alert("按了回车键");    
+                }
+            }
+        }
+
+        window.onload=function(event){
+            // 如果放到onload大括号外面，就会报错，因为你没有事件发生。
+            console.log(event) //Event {isTrusted: true, type: 'load', target: document, currentTarget: Window, eventPhase: 2, … }
+        }
+
+    </script>
+
+    <input type="text" id="username">    
+</body>
+</html>

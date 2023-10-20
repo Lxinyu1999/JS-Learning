@@ -1,0 +1,23 @@
+<html>
+<head></head>
+<body>
+	<script type="text/javascript">
+
+	function User(a,b,c){
+	
+	//用this来声明类的属性
+	this.age = a;
+	this.name = b;
+	this.no = c;
+}
+
+	var u1 = new User(19,"日天哥",110);
+	alert(u1.age);
+	alert(u1.name)
+
+	//也可以用这种方法提取属性
+	alert(u1["no"]);	
+
+	</script>
+</body>
+</html>
