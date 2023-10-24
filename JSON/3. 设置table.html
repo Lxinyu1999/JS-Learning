@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>设置table的tbody</title>
+</head>
+<body>
+    <script>
+        // 现在有一个json数据，我希望把它展示到table当中
+        let data={
+            "total":4,
+            "emps":[
+                {"empno":7369,"ename":"Smith","sal":800.0},
+                {"empno":7370,"ename":"Alex","sal":700.0},
+                {"empno":7371,"ename":"Bob","sal":850.0},
+                {"empno":7371,"ename":"Eve","sal":850.0}
+            ]
+        }
+
+
+        window.onload=function(){
+            // 获取按钮
+            let btn = document.querySelector('input');
+            btn.onclick= ()=>{
+                // 解析json，首先获取员工列表数组
+                let emps = data.emps;
+                let html = ""; // 空字符串用于拼接，生成表格用的html代码
+
+                // 每个员工对应一个tr，说白了一个员工对应一行
+                for(emp of emps){
+                    html += "<tr>"; // 一行的开始
+
+                    // 表格里面的三列，分别对应三个属性值
+                    html += "<td>"+emp.empno+"</td>"
+                    html += "<td>"+emp.ename+"</td>"
+                    html += "<td>"+emp.sal+"</td>"
+
+                    html += "</tr>" // 一行结束
+                }
+
+                // 然后把刚才那一堆生成的html代码，放到tbody里面即可
+                document.querySelector('tbody').innerHTML = html;
+
+                // 把总计条数改了
+                document.querySelector('span').innerHTML = data.total;
+            }
+        }
+
+    </script>
+    <input type="button" value="显示员工信息">
+    <h2>员工信息列表</h2>
+    <hr>
+
+    <table border="1px" width="50%">
+        <tr>
+            <th>员工编号</th>
+            <th>员工名字</th>
+            <th>员工薪资</th>
+        </tr>
+        <!-- 在一开始tbody内部是没有数据的，只有点击按钮之后才会把json的数据放进来。同时修改下面的总条数 -->
+        <tbody>
+            <!-- 下面这段代码我们要让他在js生成，然后用inner HTML插进来就可以了 -->
+
+            <!-- <tr>
+                <td>7369</td>
+                <td>Smith</td>
+                <td>800</td>
+    
+            </tr>
+            <tr>
+                <td>7369</td>
+                <td>Smith</td>
+                <td>800</td>
+    
+            </tr>
+            <tr>
+                <td>7369</td>
+                <td>Smith</td>
+                <td>800</td>
+            </tr> -->
+        </tbody>
+
+    </table>
+    总共<span>0</span>条数
+</body>
+</html>

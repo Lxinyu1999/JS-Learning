@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eval函数</title>
+</head>
+<body>
+    <script>
+        /*
+            eval函数的作用是把一段代码当作js代码解释并执行
+        */
+       eval("i=100"); // window.eval，window可以省略。
+       alert("i= "+i);
+
+       // 模拟一串从java中获得的字符串json
+       var fromJava ="{\"username\":\"zhangsan\",\"password\":123}"
+       // 将该格式的字符串转化为json对象
+       eval("var jsonObj = "+fromJava) // 模拟我们在前端取数据的过程
+       alert(jsonObj.username+','+jsonObj.password) // zhangsan,123 转换成功
+    </script>
+</body>
+</html>

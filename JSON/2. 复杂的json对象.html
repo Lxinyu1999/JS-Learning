@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>稍微复杂一些的json对象</title>
+</head>
+<body>
+    <script>
+        let user={
+            'usercode':110,
+            'username':'张三',
+            'sex':true,
+            'address':{
+                'city':'北京',
+                'street':'昌平区',
+                'zipcode':"8080139"
+            },
+            'hobby':["smoke","drink","tt"]
+
+        }
+        // 访问人名，以及居住的城市
+        alert(user.username+","+user.address.city) // 子字典就连续.就完事了
+
+        /*
+            设计一个json格式的数据，可以描述整个班级中学生的信息以及总人数的信息。
+        */
+        let students={
+            "total":3,
+            "students":[
+                {"name":"zhangsan","age":24,"sex":true},
+                {"name":"lisi","age":22,"sex":false},
+                {"name":"wangwu","age":21,"sex":true}
+            ]   
+        }
+    </script>
+</body>
+</html>

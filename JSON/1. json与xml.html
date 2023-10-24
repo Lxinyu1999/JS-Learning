@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>什么是json</title>
+</head>
+<body>
+    <script>
+        /*
+            JSON 全称 JavaScript Object Notation
+            它是一种标准数据交换格式，比如你用c语言和js或者系统A和系统B交换数据，就要用json。
+            它的优点：体积小，易解析
+            这个数据格式是谁规定的？W3C
+
+            在实际开发中，有两种：XML和JSON。XML虽然体积大，难以解析，但是语法严谨，通常银行相关的系统会用到XML。
+            在JavaScript当中，script代码块里面就可以直接写json了。
+
+            json的语法格式
+            var jsonObj = {
+                "属性名":属性值,
+                "属性名":属性值,
+                ...
+            };
+
+            java连接数据库后，将数据以json格式拼接，获得一个字符串，然后返回该字符串！（注意是返回的字符串，还不是json对象）
+
+            在js里面，[]是数组，{}是json对象。（java里面[]和{}都要用到数组里面，int [] arr = {1,2,3};）
+        */
+
+        // 创建json对象
+        let stuObj = {
+            'sno':110,
+            'sname':'zhangsan',
+            'sex':'male'
+        }
+        // 访问json学生对象的属性
+        console.log(stuObj.sname); // zhangsan
+        console.log(stuObj.sno); //110
+
+        // 通过json创建学生类数组
+        let stuObjs = [
+            {'sno':110,'sname':'zhangsan','sex':'male'},
+            {'sno':220,'sname':'lisi','sex':'female'},
+            {'sno':330,'sname':'ritiange','sex':'male'},
+        ]
+        // 遍历
+        for(let i=0;i<stuObjs.length;i++){
+            alert(stuObjs[i].sname+','+stuObjs[i].sno+','+stuObjs[i].sex)
+        }
+
+    </script>
+</body>
+</html>

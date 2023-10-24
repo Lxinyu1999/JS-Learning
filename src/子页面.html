@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    子页面！日天锅
+
+    <script>
+        window.onload= function(){
+            // 注意，这里不能写button！因为select是<>尖括号元素，是input，或者你写：input[type="button"]也行。
+            let btn = document.querySelector('input');
+            btn.onclick = ()=>{
+                // 引用当前浏览器窗口（或标签页）的顶级窗口
+                if(window.top!=window.self){
+                    alert("已设置！")
+                    // 把顶级页面的地址赋值为当前子页面的地址
+                    window.top.location = window.self.location
+                }
+            }
+        }
+    </script>
+
+    <input type="button" value="将子窗口设置为顶级窗口">
+</body>
+</html>

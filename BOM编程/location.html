@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>设置url</title>
+</head>
+<body>
+    <script>
+
+        window.onload=()=>{
+            // 注意，querySelector里面一定是字符串
+            document.querySelector('input').onclick=function(){
+                // location对象代表浏览器那个地址栏，我们获取它
+                // let loc = window.location
+                // // 设置location对象的超链接，这里的href可以省略
+                // loc.href = "https://www.baidu.com"
+                
+                // 简化之后就可以写成如下：
+                window.location = "https://www.baidu.com"
+
+                // 注意：document.location.href也可以！但是感觉不严谨啊，你不是不包括上面么？...
+                // 另外href可以省略
+                //document.location = "https://www.baidu.com"
+
+
+            }
+        }
+    </script>
+    <input type="button" value="前往百度">
+    <!-- 另一种方法是通过window.open(url)的形式 -->
+    <input type="button" value="前往谷歌" onclick="window.open('https://www.google.com')">
+</body>
+</html>

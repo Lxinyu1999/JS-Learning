@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>弹出消息框与确认框</title>
+</head>
+<body>
+    <script>
+        function del(){
+            // 通常用于创建一个弹出式对话框，其中包含一个消息和两个按钮，通常是"确定"和"取消"。这个对话框通常用于要求用户确认或取消某个操作。
+            // let ok = window.confirm("确认删除数据吗？") // 如果选择“确定”，返回true；否则返回false
+            // if(ok){
+            //     alert("正在删除数据...")
+            // }
+
+            // 上述代码可以简化为：
+            if(window.confirm("确认删除数据吗？")){ 
+                alert("正在删除数据...")
+            }
+        }
+
+    </script>
+    <input type="button" value='弹出消息框' onclick="window.alert('消息框')">
+    <input type="button" value="弹出确认框" onclick=del()>
+
+</body>
+</html>
