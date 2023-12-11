@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+        创建元素
+            $("内容")
+
+        添加元素
+            前追加子元素
+                指定元素.prepend(内容): 在指定的元素的内部的最前面追加内容，可以是字符串或者html元素，jquery对象
+                $(内容).prependTo(指定元素)：把内容追加到指定元素内部的最前面
+            后追加子元素
+                指定元素.append(内容)：在指定元素内部的最后面追加内容
+                $(内容).appendTo(指定元素)
+            前追加同级元素
+                before()：在指定元素的前面追加内容
+            后追加同级元素
+                after()：在指定元素的后面追加内容
+    -->
+  <body>
+    <span class="red">男生</span>
+    <span class="blue">偶像</span>
+    <div class="green"><span>明星</span></div>
+    <script>
+      // 创建元素
+      let p = "<p>我是一个p标签</p>";
+      console.log($(p)); // 变成了jquery对象
+
+      // 在明星前面添加"经纪人"span标签
+      let span = "<span>经纪人</span>";
+
+      // 前追加
+      $(".green").prepend(span); // 经纪人 明星
+
+      let span2 = "<span>经纪人2</span>";
+      $(span2).prependTo($(".green"));
+
+      // 后追加：粉丝
+      let span3 = "<span>粉丝</span>";
+      let span4 = "<span>粉丝2</span>";
+      $(span3).appendTo($(".green"));
+      $(".green").append(span4); // 经纪人2 经纪人 明星 粉丝 粉丝2
+
+      /* 注意：如果指定的位置已经有位置了，就相当于进行了 “剪切操作” */
+      // $(".green").append($(".red")); // 男生的标签直接跑到了明星标签的最后一个位置上，相当于剪切了
+
+      // 同级追加
+      let sp1 = "<span class='pink'>演员</span>";
+      let sp2 = "<span class='gray'>女生</span>";
+
+      $(".blue").before(sp1); // 在元素前插入sp1
+      $(".red").after(sp2); // 在元素后插入sp2
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    margin: 10px 0px;
+  }
+  span {
+    color: white;
+    padding: 8px;
+  }
+  .red {
+    background-color: red;
+  }
+  .green {
+    background-color: green;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .pink {
+    background-color: pink;
+  }
+  .gray {
+    background-color: gray;
+  }
+</style>

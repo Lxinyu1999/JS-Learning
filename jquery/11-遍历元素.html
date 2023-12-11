@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+        $(selector).each(function(index,element))
+        index是遍历元素的序号，从0开始，element表示遍历的当前元素
+        参数function为遍历时的回调函数，也就是你遍历之后要做什么。
+    -->
+  <body>
+    <span class="green">jquery</span>
+    <span class="blue">javase</span>
+    <div class="green">http协议</div>
+    <span class="blue">servlet</span>
+
+    <script>
+      /* 遍历元素 */
+      // 用类选择器遍历
+      $(".green").each((id, element) => {
+        console.log(id, element); // 0 <span class="green">jquery</span>, 1 <div class="green">http协议</div>
+      });
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    margin: 10px 0px;
+  }
+  span {
+    color: white;
+    padding: 8px;
+  }
+  .red {
+    background-color: red;
+  }
+  .green {
+    background-color: green;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .pink {
+    background-color: pink;
+  }
+  .gray {
+    background-color: gray;
+  }
+</style>

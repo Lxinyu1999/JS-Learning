@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 
+        $().事件名(function(){
+
+        })
+     -->
+
+    <script>
+      $(function () {
+        $("#test").click(function () {
+          console.log("世上无难事，只怕有心人");
+        });
+
+        $("#btnTest").click(function () {
+          // 禁用按钮
+          $(this).prop("disabled", true);
+        });
+      });
+
+      // 多个事件绑定，直接链式绑定就行了，顺序无所谓
+      $(function () {
+        $("#btn")
+          .click(function () {
+            console.log("按钮被点击了");
+          })
+          .mouseout(function () {
+            console.log("按钮移开");
+          });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="test">点击查看名言</div>
+    <input type="button" value="点击就不可用" id="btnTest" />
+    <button id="btn">按钮</button>
+  </body>
+</html>
+<style></style>

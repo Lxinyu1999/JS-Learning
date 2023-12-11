@@ -1,0 +1,17 @@
+[
+    {
+        "userId":1,
+        "userName":"zhangsan",
+        "userAge":18
+    },
+    {
+        "userId":2,
+        "userName":"lisi",
+        "userAge":24
+    },
+    {
+        "userId":3,
+        "userName":"asdas",
+        "userAge":22
+    }
+]

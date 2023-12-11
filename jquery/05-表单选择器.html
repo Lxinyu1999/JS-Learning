@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <form id="myform" name="myform" method="post">
+      <input type="hidden" name="uno" value="9999" disabled="disabled" />
+      姓名：<input type="text" id="uname" name="uname" /> <br />
+      密码：<input type="password" id="upwd" namem="upwd" value="123456" />
+      <br />
+      年龄：<input type="radio" name="uage" value="0" checked="checked" />小屁孩
+      <input type="radio" name="uage" value="1" />你懂的 <br />
+      爱好：<input type="checkbox" name="ufav" value="篮球" /> 篮球
+      <input type="checkbox" name="ufav" value="爬床" /> 爬床
+      <input type="checkbox" name="ufav" value="代码" /> 代码<br />
+      来自：
+      <select name="ufrom" id="ufrom">
+        <option value="-1" selected="selected">请选择</option>
+        <option value="0">北京</option>
+        <option value="1">上海</option>
+      </select>
+      <br />
+      简介：<textarea name="uintro" cols="30" rows="10"></textarea> <br />
+      头像： <input type="file" /> <br />
+      <input
+        type="image"
+        src="http://www.baidu.com/img/bd_logo1.png"
+        width="20"
+        height="20"
+      />
+      <button type="submit" onclick="return checkForm()">提交</button>
+      <button type="reset">重置</button>
+    </form>
+    <script>
+      // 表单选择器
+      let inputs = $(":input");
+      console.log(inputs); // 14个，即这个大表单里面的所有元素
+
+      let text = $(":text");
+      console.log(text); // 输出text输入框
+
+      // 元素选择器
+      console.log($("input")); // 10个，即开头为input的元素个数
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+ 
+    -->
+  <body>
+    <h3>设置元素内容</h3>
+    <div id="html"></div>
+    <div id="text"></div>
+    <input type="text" name="uname" value="oop" />
+    <script>
+      // html(内容) ：可以识别代码，类似innerHTML
+      $("#html").html("<h2>上海</h2>");
+      // text()：不可以识别代码，类似innerText
+      $("#text").text("<h2>北京</h2>");
+
+      // 获取：直接用html()，text()即可
+      console.log($("#html").html()); //<h2>上海</h2>
+      console.log($("#html").text()); //上海
+
+      // 获取表单元素的值
+      let val = $("input").val();
+      console.log(val); // oop
+
+      $("input").val("今天天气下雨"); // 输入框内容变了
+    </script>
+  </body>
+</html>

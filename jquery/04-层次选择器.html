@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+    
+    层次选择器
+        1. 后代选择器
+        格式：父元素 子元素（空格隔开）
+        示例：$("父元素" 子元素)，选择父元素当中的所有子元素
+        2. 子代选择器
+        格式：$("父元素" > 子元素)，选择父元素的所有第一代子元素 
+
+        3.相邻选择器
+        格式：$("元素" + 指定元素)，选择元素的下一个指定元素，如果不存在，获取不到（必须相邻）
+        4.同辈选择器
+        格式：$("元素" + 指定元素)，选择元素的下面的所有指定元素
+
+-->
+  <body>
+    <div id="parent">
+      层次选择器
+      <div id="child" class="testColor">
+        父选择器
+        <div class="gray">子选择器</div>
+        <img
+          src="http://www.baidu.com/img/bd_logo1.png"
+          width="270"
+          height="129"
+        />
+        <img
+          src="http://www.baidu.com/img/bd_logo1.png"
+          width="270"
+          height="129"
+        />
+      </div>
+      <div>
+        选择器2
+        <div>选择器2中的div</div>
+      </div>
+    </div>
+
+    <script>
+      // 后代选择器
+      let hd = $("#parent div");
+      console.log(hd); //  长度=4，因为有4个子div在里面
+      // 子代选择器
+      let zd = $("#parent > div");
+      console.log(zd); // 长度=2，因为有2个子div是直接在parent里面
+      // 相邻选择器
+      let xl = $("#child + div");
+      console.log(xl); // 选择器2（注意子代被跳过了）
+      // 同辈选择器
+      let tb = $(".gray ~ img");
+      console.log(tb); // 两个img （子代同样被跳过）
+    </script>
+  </body>
+</html>
+
+<style>
+  .testColor {
+    background-color: green;
+  }
+  .gray {
+    background-color: gray;
+  }
+</style>

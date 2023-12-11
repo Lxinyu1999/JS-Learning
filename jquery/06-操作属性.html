@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+    属性分类：
+        1. 固有属性（元素本身就有的属性，比如img里面的src，input里面的type等）
+        返回值是Boolean的属性：checked，selected，disabled
+        2. 自定义属性
+    获取属性：attr("属性名") / prop("属性名")
+
+
+    设置属性：
+        attr("属性名"，设置的值)
+
+    删除属性：
+        removeAttr("属性名")
+
+    总结：布尔类型用prop，其他的都用attr
+-->
+  <body>
+    <input type="checkbox" name="ch" checked="checked" id="a" hh="abc" /> aa
+    <input type="checkbox" name="ch" id="b" /> bb
+
+    <script>
+      /* 获取属性 */
+      // 一般固有属性:两种方法均可获取
+      let name1 = $("#a").attr("name");
+      let name2 = $("#b").prop("name");
+      console.log(name1, name2); // ch,ch
+
+      // 返回值是Boolean的属性:attr返回表单上的选择项，prop返回true/false
+      // 若未设置属性，attr返回undefined，prop返回false
+      let ck1 = $("#a").attr("checked"); // checked
+      let ck2 = $("#b").prop("checked"); // false
+      console.log(ck1, ck2);
+
+      // 自定义属性：attr可以获取，prop不可以
+      let myAttr1 = $("#a").attr("hh"); // abc
+      let myAttr2 = $("#a").prop("hh"); // undefined
+      console.log(myAttr1, myAttr2);
+
+      /*设置属性*/
+      // 固有属性
+      $("#a").attr("id", "aa");
+
+      // boolean属性 —— 推荐使用prop设置，直接可以用true/false
+      $("#b").prop("checked", true);
+
+      // 自定义属性 —— 只能使用attr设置
+      $("#aa").attr("hh", 123);
+      console.log($("#aa").attr("hh")); //123
+    </script>
+  </body>
+</html>

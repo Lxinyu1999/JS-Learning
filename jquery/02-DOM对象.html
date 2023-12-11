@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      /* DOM对象 */
+      let divDOM = document.getElementById("root");
+      console.log(divDOM); // <div id="root"></div>
+
+      /* jQuery对象 */
+      let divJQuery = $("#root");
+      console.log(divJQuery); // S.fn.init {0: div#root, length: 1}
+
+      // div对象可以转化为jquery对象
+      let divDOMToJquery = $(divDOM);
+      console.log(divDOMToJquery);
+
+      // jquery对象也可以转化为DOM对象
+      let divJqueryToDOM = divJQuery[0]; // 可以把jquery对象理解为一个大的数组对象
+      console.log(divJqueryToDOM); // <div id="root"></div>
+    </script>
+  </body>
+</html>

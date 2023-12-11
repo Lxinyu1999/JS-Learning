@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="root">id选择器1<span>span中的内容</span></div>
+    <div id="root" class="blue">元素选择器</div>
+    <span class="blue">样式选择器</span>
+    <script>
+      // id选择器
+      let mydiv = $("#root");
+      console.log(mydiv);
+
+      // 类选择器
+      let clas = $(".blue");
+      console.log(clas);
+
+      // 元素选择器
+      let spans = $("span");
+      console.log(spans);
+
+      // 通用选择器
+      let all = $("*");
+      console.log(all);
+      // 组合选择器
+      let group = $("#root,span,.blue");
+      console.log(group);
+    </script>
+  </body>
+</html>

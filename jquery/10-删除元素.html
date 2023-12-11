@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <!-- 
+        删除元素
+            指定元素.remove()：删除元素及其对应的子元素，连同标签和内容一起删掉
+            指定元素.empty()：清空元素内容，保留标签（相当于删除标签的值）
+    -->
+  <body>
+    <span class="green">jquery<a>删除</a></span>
+    <span class="blue">javase</span>
+    <div class="green">http协议</div>
+    <span class="blue">servlet</span>
+
+    <script>
+      // 删除元素
+      $(".green").remove();
+
+      // 清空元素
+      $(".blue").empty();
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    margin: 10px 0px;
+  }
+  span {
+    color: white;
+    padding: 8px;
+  }
+  .red {
+    background-color: red;
+  }
+  .green {
+    background-color: green;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .pink {
+    background-color: pink;
+  }
+  .gray {
+    background-color: gray;
+  }
+</style>

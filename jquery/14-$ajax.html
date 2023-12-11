@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+    <button id="1">点击按钮发送$.ajax请求</button>
+    <button id="2">点击按钮发送$.get请求</button>
+
+    <script>
+      $("#1").click(function () {
+        // 我们以live server构建的服务器为server，向其发送请求。
+        $.ajax({
+          type: "get", // 请求方式
+          url: "http://127.0.0.1:5500/data.txt", // 请求地址，我们打开live server作为服务器
+          data: {
+            // 请求数据，json对象
+            uname: "zhangsan", // 如果没有参数，可以不设置
+          },
+          dataType: "json", // 自动转换为json格式
+          success: function (data) {
+            // 请求成功时调用的函数
+            console.log(data);
+            //0: {userId: 1, userName: 'zhangsan', userAge: 18},1: {userId: 2, userName: 'lisi', userAge: 24}...
+          },
+        });
+      });
+
+      $("#2").click(() => {
+        $.get("http://127.0.0.1:5500/data.txt", {}, function (data) {
+          console.log("请求成功");
+          // 成功之后的回调函数，类似于promise的then方法
+          console.log(data);
+        });
+      });
+    </script>
+  </body>
+</html>
+<style></style>

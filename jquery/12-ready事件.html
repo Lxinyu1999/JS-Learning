@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 
+        ready加载事件：类似于js中的load
+        ready事件可以写多个
+        语法：$(document).ready(function(){})，其中document和.ready都可以省略
+        变成：$(function(){})
+     -->
+
+    <script>
+      $(function () {
+        $("span").each((id, e) => {
+          console.log(id, e);
+        });
+      });
+
+      // 可以同时存在
+      $(() => {
+        $(".blue").each((id, e) => {
+          console.log(id, e);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <span class="green">jquery</span>
+    <span class="blue">javase</span>
+    <div class="green">http协议</div>
+    <span class="blue">servlet</span>
+  </body>
+</html>
+<style></style>
