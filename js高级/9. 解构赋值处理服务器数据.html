@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const msg = {
+        code: 200,
+        msg: "获取新闻列表成功",
+        name: "一个列表",
+        data: [
+          {
+            id: 1,
+            title: "5G商用自己，三大运营商收入下降",
+            count: 58,
+          },
+          {
+            id: 2,
+            title: "国际媒体头条速览",
+            count: 56,
+          },
+          {
+            id: 3,
+            title: "乌克兰和俄罗斯持续冲突",
+            count: 1669,
+          },
+        ],
+      };
+
+      /** 将以上msg对象 采用数组、对象解构的方式，只选出data
+       *  随后，将data传递给渲染函数render()渲染页面
+       *  之后，为了防止混淆，将名字变更为myData
+       *  最后，打印输出每一条数据。
+       */
+      let str = "";
+
+      // 首先是const {data} = msg; 我们只解构data属性
+      function render({ data: newsList }) {
+        // 对于复杂数组，采用forEach处理每个对象元素
+        newsList.forEach((item) => {
+          // 每个对象内部进行对象解构
+          let { id, title, count } = item;
+
+          // 将解构的对象赋值到str里面
+          str += ` <div id="msg">
+                      <p>id: ${id}</p>
+                      <p>标题：${title}</p>
+                      <p>数量：${count}</p>
+                   </div>`;
+        });
+
+        // 最后把所有的html字符串赋值到根模板里面。
+        document.querySelector("div").innerHTML = str;
+      }
+      // 这里就相当于：形参 {data} = msg
+      render(msg);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      // 需求：鼠标在盒子上移动，里面的数字就+1，但间隔不能太快。
+      const box = document.getElementById("box");
+      let i = 1;
+      function mouseMove() {
+        box.innerHTML = i++;
+      }
+      /* 这里如果直接通过addEventListener或者onmove来绑定事件的话，就会导致执行频率过高的问题 */
+
+      /**
+       * 防抖的意义：我们在网页中有很多高频操作，例如多次提交，多次缩放页面，多次输入等。如果每一次操作都立即响应，浏览器的负担会很大（特别是DOM操作和ajax）。
+       * 为了防止这种情况出现，就出现了防抖。它的思路是：使用setTimeout，规定一个时间wait，在wait内先不执行操作，而是等待，如果等待时间又进行了一样的操作，
+       * 则停止上一次操作，清空计时器，重新为新一次的操作计时。
+       *
+       * 这里还有一个细节：由于我们要多次使用定义好的防抖函数debounce()，每次都需要一个独立的setTimeout id，因此要使用闭包。
+       * 因为每个闭包环境都是独立的，每个事件处理器都在操作它自己闭包内的 timer 变量。
+       */
+
+      function debounce(fn, wait) {
+        // 闭包
+        let timerId = null;
+        /* 内层函数，实际上这里才是真正的防抖函数，外面只不过是为了闭包服务的！！！！！！*/
+        return function () {
+          // 如果计时器已经存在，则重置它
+          if (timerId) {
+            clearTimeout(timerId);
+          }
+          // 之后重新开始计时，并更新id
+          timerId = setTimeout(function () {
+            // 等待计时器计时且没有被打断，则执行该操作。
+            fn();
+          }, wait); // 需要等待的时间是所有html元素统一由你事先规定的。
+        };
+      }
+
+      // // 之后通过闭包返回一个防抖包装过的函数
+      // let mouseMove_fn = debounce(mouseMove, 1000);
+      // // 将防抖包装过的函数和鼠标移动事件绑定
+      // box.onmousemove = mouseMove_fn;
+      // box.onmousemove = debounce(mouseMove, 1000);
+
+      /* 可以一步简写为如下形式，它的意思是首先执行防抖包装，传入你想防抖的函数mouseMove和限定时间500ms */
+      // debounce是带括号的，所以立即执行返回的是一个回调函数，这个函数里面会判定计时器id，同时进行计时。
+      // 注意：函数作为参数传入时传入的是引用，debounce并不是回调函数，它是主线程函数在页面加载时立即执行
+      // 随后它返回的一个匿名函数将作为回调函数传递给addEventListner函数。
+      box.addEventListener("mousemove", debounce(mouseMove, 500));
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+  }
+</style>

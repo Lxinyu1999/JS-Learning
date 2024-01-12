@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      const box = document.querySelector("#box");
+      let i = 1;
+      function mouseMove() {
+        box.innerHTML = i++;
+      }
+
+      /** 节流和防抖类似，只不过它要求的是一段时间内只执行第一次，其他的执行都作废。
+       *  还是利用闭包来处理timerId，为不同的事件生成不同的timerId
+       */
+      function throttle(fn, wait) {
+        let timerId;
+        // 内部函数写节流的具体逻辑
+        return function () {
+          /* 如果当前timerId存在，直接跳过该函数，表示不执行。如果不存在，说明是新的开始，要执行。 */
+          if (!timerId) {
+            timerId = setTimeout(function () {
+              // 使用了一个匿名函数来包裹以下两个操作：fn和清空定时器
+              fn();
+              /* 注意，计时器需要在执行完当前事件后清空，而且要放到定时器里面。放外面就是主线程直接走了 */
+              timerId = null; // 不要使用clearTimeout，因为是在定时器内部。
+            }, wait);
+          }
+        };
+      }
+      // 调用throttle外部函数会立即执行，获取闭包，为每个事件单独生成各自的timerId。
+      // 同时返回内部函数赋值给onmousemove，每次移动鼠标时会回调。
+      box.onmousemove = throttle(mouseMove, 500);
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    width: 200px;
+    height: 200px;
+    background-color: pink;
+  }
+</style>

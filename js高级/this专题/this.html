@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <button>111</button>
+    <script>
+      /** 1. 普通函数：谁调用就指向谁 ，
+       *  这是个基本原则
+       */
+      function normalFn() {
+        console.log(this);
+      }
+      // 直接调用函数，在nodejs环境里面是输出global对象，在浏览器里面是window对象。
+      // 由于这两个是可以省略的，所以实际上是window.normalFn()
+      normalFn(); // window，在nodejs里面会输出一大串：<ref *1> Object [global] {
+
+      // 使用setTimeout也是默认通过global/window调用的，实际上是this.setTimeout()
+      setTimeout(function () {
+        console.log(this); // <ref *1> Object [global]
+      });
+
+      /** 2. 对象内部函数：对于普通函数来说就是指向该对象，但是注意，如果你的键值对形式是匿名函数，
+       *     当把函数引用传递个其他对象，那就是指向其他对象了
+       *     因此结论就是一句话：无论函数原本属于谁，判定this的唯一依据，就是此刻函数的执行是由哪个对象调用。
+       */
+      const rtg = {
+        name: "rtg",
+        // 这个函数一定是rtg调用吗？并不一定
+        sayHi: function () {
+          console.log(this);
+        },
+      };
+      // rtg调用，那么就指向rtg
+      rtg.sayHi(); // rtg
+      // 赋值给window，那么就会让window调用
+      window.sayHi = rtg.sayHi;
+      window.sayHi(); // window
+
+      /* 实际情况下很可能会赋值给其他一个变量, 这里实际上是window.xiaoming。
+          给window对象加了一个sayHi函数，名字叫xiaoming
+       */
+      let xiaoming = sayHi;
+      xiaoming(); // 所以最终调用者还是window。
+
+      /** 3. 匿名函数：或者说作为回调函数传递给其他函数作为参数，
+       *  当一个函数作为回调函数传入时，实际上你就把它的执行权让渡给了他人。
+       *  因此此时你要判断，这个回调函数被谁调用了
+       *
+       *  最常见的就是setTimeout(fn)，往里面传入的fn调用者是window对象
+       *  另外就是dom元素，绑定事件时，调用者为dom元素本人
+       *
+       */
+
+      const lxy = {
+        name: "lxy",
+        sayHi: function () {
+          // 虽然嵌套在lxy对象里面，但setTimeout里面的回调函数是交给window来调用的
+          setTimeout(function () {
+            console.log("lxy.sayHi()的调用者是：", this);
+          }, 1000);
+        },
+      };
+      lxy.sayHi(); // lxy.sayHi()的调用者是： Window
+
+      // 我们平常的dom元素也属于可调用函数的对象，匿名函数也属于普通函数一类
+      document.querySelector("div").onmouseover = function () {
+        console.log(this); // <div></div>
+      };
+
+      /* 特殊情况：没有调用者的函数，this指向window */
+      function abc(fn) {
+        // 这里传入的是一个局部变量，局部变量不属于任何对象包括window
+        fn();
+      }
+      function def() {
+        console.log("我的调用者是：", this);
+      }
+      abc(def); // 我的调用者是： Window
+
+      /* this只有全局作用域和函数作用域，没有块级作用域 */
+      let obj = {
+        name: this,
+        myMethod() {
+          // 这里的test函数并不是obj调用的，而是window。有点像setTimeout的感觉
+          function test() {
+            console.log("块级作用域里面的函数this指向：" + this);
+          }
+
+          test();
+        },
+      };
+      console.log("obj的name是？", obj.name); // Window
+      obj.myMethod(); // Window
+
+      /* 5. 构造函数：本身是一个类，所以没有this的指向者一说。实际new的对象是谁就指向谁。*/
+      function Person(name, age) {
+        // this.属性：这里的this是new一个新Person之后创建的对象
+        this.name = name;
+        this.age = age;
+        // this.函数名：一般构造函数里面的函数引用我们不乱动，所以应该没有乱赋值的问题
+        this.sayHi = function () {
+          console.log(
+            "Hello my name is " + this.name + ", my age is " + this.age
+          );
+        };
+      }
+      const person1 = new Person("Alice", 24);
+      person1.sayHi(); // Hello my name is Alice, my age is 24
+
+      // 使用class关键词也是同理
+      class Student {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        sayHi() {
+          console.log(
+            "Hello my name is " + this.name + ", my age is " + this.age
+          );
+        }
+      }
+      const stu1 = new Student("Bob", 11);
+      stu1.sayHi(); //Hello my name is Bob, my age is 11
+
+      /* 6. 箭头函数：箭头函数不是动态绑定（谁调用），而是根据最近原则向上寻找合法作用域，根据作用域静态绑定this值。 */
+      // {}对象的块级作用域对this无效，因此this会继续向上寻找到全局作用域，也就是window。
+      const person = {
+        sayHi: () => {
+          console.log("箭头函数里面的this指向：" + this);
+        },
+      };
+      // 虽然是person调用的，但是箭头函数直接到上级也就是window了。
+      person.sayHi();
+      // 即使你赋值给其他对象，看起来是person1调用，但是箭头函数是静态绑定，早就决定好了，只能说window
+      person1.sayHi = person.sayHi;
+      person1.sayHi(); // 箭头函数里面的this指向：[object Window]
+
+      // 同理也可以用到dom元素上
+      let btn = document.querySelector("button");
+      // 输出window，箭头函数跳过当前函数作用域和块级作用域到上一级window去
+      btn.onclick = () => {
+        console.log(this);
+      };
+      // 输出button，普通函数指向dom对象
+      btn.onmouseover = function () {
+        console.log(this);
+      };
+
+      /* 来看一个复杂例子 */
+      function myFunc() {
+        // 这里的箭头函数是指向谁的？沿上级寻找，也就是myFunc()的函数域
+        // 也就是说，谁调用myFunc()，那么箭头函数的this就指向谁
+        return () => {
+          console.log("特殊例子里的：" + this);
+        };
+      }
+      let myObj = {
+        // 把myFunc赋值给了myObj的函数，因此myObj调用了myFunc，箭头函数指向myObj
+        func1: myFunc,
+        // 把箭头函数直接赋值给了myObj，此时箭头函数会跳过对象块作用域，指向window
+        func2: myFunc(),
+      };
+      myObj.func1()(); // myObj
+      myObj.func2(); // Window
+
+      /* 另一个例子：对象的函数里面的箭头函数，此时箭头函数会指向该函数调用者，所以对象调用时会指向该对象 */
+      let test1 = () => {
+        console.log("obj2里面调用的箭头函数this指向+" + this);
+      };
+      let obj2 = {
+        sayHi() {
+          // 注意：箭头函t数也是匿名函数，不能直接调用，必须先赋值给其他函数引用
+          let test2 = () => {
+            console.log("obj2里面的this指向：" + this);
+          };
+          test2();
+        },
+        // 这里把函数引用调过来了，如果是普通函数那就是obj2调用的。然而箭头函数test1已经绑定了只能是window调用了。
+        sayHi2: test1,
+        // 我们说过箭头函数它的绑定是在定义时确定的！而这里只是把函数test调用放到这里来了，并没有定义过程
+        sayHi3() {
+          test1();
+        },
+      };
+      obj2.sayHi(); // obj2
+      obj2.sayHi2(); // window
+      obj2.sayHi3(); // window
+
+      /* 箭头函数的作用：除了简写以外，可以帮助我们跳出传统动态绑定this的方法，改成静态。
+          可以防止你的this被封装的函数污染，特别是作为回调函数时
+          之前在promise里面，就遇到过需要用self定义this的情况，现在不需要了
+       */
+      function foo() {
+        // 使用箭头函数以后，this将不再指向window而是外层foo的调用者
+        setTimeout(() => {
+          console.log("在计时器里面的this指向：" + this);
+        }, 1000);
+      }
+      let obj3 = {};
+      obj3.method = foo;
+      obj3.method(); //obj3
+
+      /* 箭头函数在类class关键词里面 
+         由于class关键词本质是构造函数的语法糖，js是通过构造函数创建对象的，所以此时的箭头函数指向的是外界的构造函数
+      */
+      // 实际上是 function Dog(){ regular(){}和()=>{} }，不过它后续会被赋值给对象
+      class Dog {
+        constructor() {
+          this.name = "My狗";
+        }
+        regularFunc() {
+          console.log("类中的普通函数this指向：" + this);
+        }
+        arrowFunc = () => {
+          console.log("类中的匿名函数this指向" + this);
+        };
+      }
+      // 此时 dd = { regular() 和 ()=>{} }，所以这两个都是指向dd的。
+      let dd = new Dog();
+      dd.regularFunc(); // dd
+      dd.arrowFunc(); // dd
+
+      // 注意：对象解构赋值时必须名称一致！这里就是把里面的对应元素（函数提取出来了），name属性被忽略了
+      let { regularFunc, arrowFunc } = dd;
+      console.log(regularFunc, arrowFunc); // 两个函数
+
+      /* 解构以后，普通函数的this就被干掉了，但是箭头函数不会，它因为是静态绑定所以一直和Dog函数作用域捆绑呢 */
+      regularFunc(); // 类中的普通函数this指向：undefined
+      arrowFunc(); // 类中的匿名函数this指向[object Object]，依然是dd
+    </script>
+  </body>
+</html>
+<style>
+  div {
+    width: 200px;
+    height: 200px;
+    background-color: pink;
+  }
+</style>
